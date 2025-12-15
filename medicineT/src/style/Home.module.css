@@ -1,0 +1,15 @@
+.container {
+  padding: 20px;
+  width: 100%;
+}
+
+.imageWrapper {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.text {
+  margin-top: 15px;
+  line-height: 1.6;
+}
