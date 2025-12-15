@@ -11,9 +11,8 @@ import Login from "./page/Login";
 import Register from "./page/Register";
 import Medicines from "./page/Medicines";
 import AdminMedicine from "./page/AdminMedicines";
-import EditMedicine from "./page/EditMedicine";
-
 import "./index.css";
+import "./style/global.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -29,7 +28,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         {/* Beskyttede routes */}
         <Route element={<ProtectedRoute />}>
           <Route path="/medicines" element={<Medicines />} />
-          <Route path="/medicines/:id/edit" element={<EditMedicine />} />
         </Route>
 
         {/* Kun admin */}

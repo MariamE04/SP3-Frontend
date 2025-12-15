@@ -1,6 +1,6 @@
 const BASE_URL = "https://medicine.mariam04.dk/api/medicineTracker";
 
-async function FetchData(endpoint, method = "GET", body = null) {
+async function FetchData(endpoint, method = "GET", body = null, token = null) {
   const headers = {
     Accept: "application/json",
   };
@@ -9,7 +9,6 @@ async function FetchData(endpoint, method = "GET", body = null) {
     headers["Content-Type"] = "application/json";
   }
 
-  const token = localStorage.getItem("jwtToken");
   if (token) {
     headers["Authorization"] = `Bearer ${token}`;
   }

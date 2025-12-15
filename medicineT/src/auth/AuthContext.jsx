@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import facade from "../utils/FetchData";
+import facade from "../utils/authFacade";
 
 // 1. Opret context
 const AuthContext = createContext();

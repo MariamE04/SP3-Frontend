@@ -1,0 +1,39 @@
+.header {
+  background: var(--primary);
+  padding: 15px;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between; /* venstre og højre adskilt */
+  align-items: center;
+}
+
+.leftLinks, .rightLinks {
+  display: flex;
+  gap: 20px;
+}
+
+.link {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.logoutButton {
+  background: none;
+  border: 1px solid white;
+  color: white;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.logoutButton:hover {
+  background: white;
+  color: var(--primary);
+}

@@ -1,0 +1,30 @@
+:root {
+  --primary: #d61919;
+  --background: #ffffff;
+  --text: #222;
+}
+
+body.light {
+  background: var(--background);
+  color: var(--text);
+}
+
+body.dark {
+  background: #222;
+  color: #f2f2f2;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
