@@ -2,14 +2,14 @@ import FetchData from "./FetchData";
 
 // ---------- LOGIN ----------
 async function login(username, password) {
-  const data = await FetchData("/auth/login", "POST", {
-    username,
-    password,
-  });
+  // Ved login er der endnu ingen token, headeren tilføjes kun hvis den findes i FetchData
+  const data = await FetchData("/auth/login", "POST", { username, password });
 
   if (data && data.token) {
-    localStorage.setItem("jwtToken", data.token);
+    localStorage.setItem("jwtToken", data.token); // gem token
   }
+
+  return data; // returner data så komponenten kan tjekke token
 }
 
 // ---------- LOGOUT ----------

@@ -11,7 +11,7 @@ function Header() {
       <nav className={styles.nav}>
         <div className={styles.leftLinks}>
           <NavLink to="/" className={styles.link}>Home</NavLink>
-          <NavLink to="/Medicine" className={styles.link}>Medicine</NavLink>
+          <NavLink to="/medicines" className={styles.link}>Medicine</NavLink>
         </div>
 
         <div className={styles.rightLinks}>

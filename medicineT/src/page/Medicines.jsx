@@ -8,6 +8,7 @@ function Medicines() {
   const [medicines, setMedicines] = useState([]);
   const [selectedMedicine, setSelectedMedicine] = useState(null);
 
+  // Hent alle mediciner
   useEffect(() => {
     FetchData("/medicines")
       .then(data => setMedicines(data))
@@ -17,15 +18,16 @@ function Medicines() {
   return (
     <div className={styles.container}>
       <div className={styles.left}>
-        <h1>My Medicines</h1>
+        <h2>My Medicines</h2>
         <MedicineOverview
           medicines={medicines}
-          onSelect={setSelectedMedicine}
+          onSelect={setSelectedMedicine} // klik på medicine sætter selectedMedicine
         />
       </div>
 
       <div className={styles.right}>
         {selectedMedicine ? (
+          // Kun vis logs for den valgte medicine
           <MedicineLogs medicineId={selectedMedicine.id} />
         ) : (
           <p className={styles.placeholder}>
