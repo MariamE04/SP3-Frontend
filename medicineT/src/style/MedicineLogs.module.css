@@ -1,0 +1,14 @@
+.logsBox {
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 6px;
+}
+
+.logItem {
+  border-bottom: 1px solid #eee;
+  padding: 8px 0;
+}
+
+.logItem:last-child {
+  border-bottom: none;
+}
