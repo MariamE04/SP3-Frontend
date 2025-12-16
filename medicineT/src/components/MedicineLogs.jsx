@@ -11,7 +11,7 @@ function MedicineLogs({ medicineId }) {
 
     setLoading(true);
 
-    FetchData(`/logs?medicineId=${medicineId}`)
+    FetchData(`/medicineLog?medicineId=${medicineId}`)
       .then(data => {
         setLogs(data || []); // tom array hvis ingen logs
         setLoading(false);
