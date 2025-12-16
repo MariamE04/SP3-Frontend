@@ -11,7 +11,6 @@ function MedicineLogs({ medicineId }) {
 
     setLoading(true);
 
-    // Eksempel: backend endpoint kan være /logs?medicineId=1
     FetchData(`/logs?medicineId=${medicineId}`)
       .then(data => {
         setLogs(data || []); // tom array hvis ingen logs
