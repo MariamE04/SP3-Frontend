@@ -28,6 +28,12 @@ async function FetchData(endpoint, method = "GET", body = null) {
 
   const res = await fetch(BASE_URL + endpoint, options);
 
+    if (res.status === 401) {
+  localStorage.removeItem("jwtToken");
+  window.location.href = "/login";
+  return;
+}
+
   if (!res.ok) {
     const text = await res.text();
     throw new Error(`HTTP ${res.status}: ${text}`);

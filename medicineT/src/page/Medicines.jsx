@@ -1,19 +1,24 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext  } from "react";
 import FetchData from "../utils/FetchData";
 import MedicineOverview from "../components/MedicineOverview";
 import MedicineLogs from "../components/MedicineLogs";
 import styles from "../style/Medicines.module.css";
+import { AuthContext } from "../auth/AuthContext";
 
 function Medicines() {
+  const { loggedIn } = useContext(AuthContext);
   const [medicines, setMedicines] = useState([]);
   const [selectedMedicine, setSelectedMedicine] = useState(null);
 
-  // Hent alle mediciner
-  useEffect(() => {
-    FetchData("/medicines")
-      .then(data => setMedicines(data))
-      .catch(err => console.error(err));
-  }, []);
+ useEffect(() => {
+  const token = localStorage.getItem("jwtToken");
+  if (!loggedIn || !token) return; // vent indtil token findes
+
+  FetchData("/medicines")
+    .then(data => setMedicines(data))
+    .catch(err => console.error(err));
+}, [loggedIn]);
+
 
   return (
     <div className={styles.container}>
