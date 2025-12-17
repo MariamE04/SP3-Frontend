@@ -5,7 +5,7 @@ async function FetchData(endpoint, method = "GET", body = null) {
     Accept: "application/json",
   };
 
-  // Brug token fra localStorage, hvis den findes
+  // Bruger token fra localStorage, hvis den findes
   const tokenFromStorage = localStorage.getItem("jwtToken");
   if (tokenFromStorage) {
     headers["Authorization"] = `Bearer ${tokenFromStorage}`;
@@ -28,9 +28,9 @@ async function FetchData(endpoint, method = "GET", body = null) {
 
   const res = await fetch(BASE_URL + endpoint, options);
 
-    if (res.status === 401) {
+  if (res.status === 401) {
   localStorage.removeItem("jwtToken");
-  window.location.href = "/login";
+  window.location.href = "/login?reason=expired";
   return;
 }
 

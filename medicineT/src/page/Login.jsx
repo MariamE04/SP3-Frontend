@@ -1,12 +1,16 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../auth/AuthContext";
+import { useSearchParams } from "react-router-dom";
+
 
 function Login() {
   const { login } = useContext(AuthContext);
   const [credentials, setCredentials] = useState({ username: "", password: "" });
   const navigate = useNavigate(); // til redirect efter login
+   const [searchParams] = useSearchParams();
 
+  const reason = searchParams.get("reason");
   const onChange = (e) => setCredentials({ ...credentials, [e.target.id]: e.target.value });
 
   const performLogin = async (e) => {
@@ -14,7 +18,7 @@ function Login() {
     try {
       await login(credentials.username, credentials.password);
       setCredentials({ username: "", password: "" });
-      navigate("/"); // redirect til f.eks. /home eller medicines
+      navigate("/");
     } catch {
       alert("Login failed. Check username and password.");
     }
@@ -22,6 +26,12 @@ function Login() {
 
   return (
     <div>
+       {reason === "expired" && (
+      <p style={{ color: "red", marginBottom: "1rem" }}>
+        Session expired – please log in again
+      </p>
+    )}
+    
       <h2>Login</h2>
       <form onSubmit={performLogin}>
         <input

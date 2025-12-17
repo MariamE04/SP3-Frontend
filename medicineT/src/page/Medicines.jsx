@@ -1,4 +1,5 @@
-import { useState, useEffect, useContext  } from "react";
+import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import FetchData from "../utils/FetchData";
 import MedicineOverview from "../components/MedicineOverview";
 import MedicineLogs from "../components/MedicineLogs";
@@ -9,30 +10,37 @@ function Medicines() {
   const { loggedIn } = useContext(AuthContext);
   const [medicines, setMedicines] = useState([]);
   const [selectedMedicine, setSelectedMedicine] = useState(null);
+  const navigate = useNavigate();
 
- useEffect(() => {
-  const token = localStorage.getItem("jwtToken");
-  if (!loggedIn || !token) return; // vent indtil token findes
+  useEffect(() => {
+    const token = localStorage.getItem("jwtToken");
+    if (!loggedIn || !token) return;
 
-  FetchData("/medicines")
-    .then(data => setMedicines(data))
-    .catch(err => console.error(err));
-}, [loggedIn]);
-
+    FetchData("/medicines")
+      .then(data => setMedicines(data))
+      .catch(err => console.error(err));
+  }, [loggedIn]);
 
   return (
     <div className={styles.container}>
       <div className={styles.left}>
+        <button
+          onClick={() => navigate("/medicines/new")}
+          className={styles.addButton} // evt. tilføj styling i CSS
+        >
+          Add Medicine
+        </button>
+
         <h2>My Medicines</h2>
+
         <MedicineOverview
           medicines={medicines}
-          onSelect={setSelectedMedicine} // klik på medicine sætter selectedMedicine
+          onSelect={setSelectedMedicine}
         />
       </div>
 
       <div className={styles.right}>
         {selectedMedicine ? (
-          // Kun vis logs for den valgte medicine
           <MedicineLogs medicineId={selectedMedicine.id} />
         ) : (
           <p className={styles.placeholder}>
