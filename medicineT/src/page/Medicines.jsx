@@ -3,15 +3,18 @@ import { useNavigate } from "react-router-dom";
 import FetchData from "../utils/FetchData";
 import MedicineOverview from "../components/MedicineOverview";
 import MedicineLogs from "../components/MedicineLogs";
+import RegisterMedicineLog from "../components/RegisterMedicineLog";
 import styles from "../style/Medicines.module.css";
 import { AuthContext } from "../auth/AuthContext";
 
 function Medicines() {
-  const { loggedIn } = useContext(AuthContext);
+  const { loggedIn, user  } = useContext(AuthContext);
   const [medicines, setMedicines] = useState([]);
   const [selectedMedicine, setSelectedMedicine] = useState(null);
+  const [showLogForm, setShowLogForm] = useState(false);
   const navigate = useNavigate();
 
+  // Hent alle medicine
   useEffect(() => {
     const token = localStorage.getItem("jwtToken");
     if (!loggedIn || !token) return;
@@ -21,12 +24,26 @@ function Medicines() {
       .catch(err => console.error(err));
   }, [loggedIn]);
 
+  const canDelete = user?.roles !== "ADMIN";
+
+  // Delete funktion
+  const handleDelete = (id) => {
+    if (!window.confirm("Are you sure you want to delete this medicine?")) return;
+
+    FetchData(`/medicines/${id}`, "DELETE")
+      .then(() => {
+        setMedicines(prev => prev.filter(med => med.id !== id));      // Opdater state efter delete
+        if (selectedMedicine?.id === id) setSelectedMedicine(null);  // Hvis det var valgt, fjern fra selected
+      })
+      .catch(err => console.error(err));
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.left}>
         <button
           onClick={() => navigate("/medicines/new")}
-          className={styles.addButton} // evt. tilføj styling i CSS
+          className={styles.addButton}
         >
           Add Medicine
         </button>
@@ -35,18 +52,34 @@ function Medicines() {
 
         <MedicineOverview
           medicines={medicines}
-          onSelect={setSelectedMedicine}
+          onSelect={(medicine) => {
+            setSelectedMedicine(medicine);
+            setShowLogForm(false);   // 🔹 skjul formular
+          }}
+          onDelete={handleDelete}
+          canDelete={canDelete}
         />
+
       </div>
 
       <div className={styles.right}>
-        {selectedMedicine ? (
+
+      {selectedMedicine && (
+        <>
           <MedicineLogs medicineId={selectedMedicine.id} />
-        ) : (
-          <p className={styles.placeholder}>
-            Select a medicine to see logs
-          </p>
-        )}
+
+          <button
+            onClick={() => setShowLogForm(prev => !prev)}
+          >
+            {showLogForm ? "Cancel" : "Add Log"}
+          </button>
+
+          {showLogForm && (
+            <RegisterMedicineLog medicine={selectedMedicine} />
+          )}
+        </>
+      )}
+
       </div>
     </div>
   );

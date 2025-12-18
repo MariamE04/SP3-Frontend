@@ -27,7 +27,7 @@ function RegisterMedicine() {
       symptomDescription: formData.symptomDescription
     };
 
-    // 🔹 POST-kaldet ligger herinde
+    //POST-kaldet
     FetchData("/medicines", "POST", newMedicine)
       .then(() => {
         alert("Medicine registered successfully!");
