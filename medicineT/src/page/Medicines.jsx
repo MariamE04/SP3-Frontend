@@ -54,7 +54,7 @@ function Medicines() {
           medicines={medicines}
           onSelect={(medicine) => {
             setSelectedMedicine(medicine);
-            setShowLogForm(false);   // 🔹 skjul formular
+            setShowLogForm(false);   //skjul formular
           }}
           onDelete={handleDelete}
           canDelete={canDelete}

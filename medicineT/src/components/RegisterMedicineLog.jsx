@@ -3,7 +3,8 @@ import FetchData from "../utils/FetchData";
 import { AuthContext } from "../auth/AuthContext";
 
 function RegisterMedicineLog({ medicine }) {
-  const { user } = useContext(AuthContext);
+  const { username } = useContext(AuthContext);
+
 
   const [formData, setFormData] = useState({
     dose: "",
@@ -18,11 +19,18 @@ function RegisterMedicineLog({ medicine }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (!username) {
+    alert("User not logged in");
+    return;
+    }
+
     const log = {
-      dose: Number(formData.dose),
-      takenAt: formData.takenAt,
-      medicineName: medicine.name
+    dose: Number(formData.dose),
+    takenAt: formData.takenAt,
+    username: username,
+    medicineName: medicine.name
     };
+
 
     FetchData("/medicineLog", "POST", log)
       .then(() => {
