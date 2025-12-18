@@ -25,6 +25,15 @@ function MedicineLogs({ medicineId }) {
 
   if (loading) return <p>Loading logs...</p>;
 
+  const handleDeleteLog = (logId) => {
+    if(!window.confirm("Delete this log?")) return;
+
+    FetchData(`/medicineLog/${logId}`, "DELETE")
+     .then(() => {
+        setLogs(prev => prev.filter(l => l.id !== logId));
+      });
+  }
+
   return (
     <div className={styles.logsBox}>
       <h2>Logs for Medicine #{medicineId}</h2>
@@ -35,6 +44,11 @@ function MedicineLogs({ medicineId }) {
         <div key={index} className={styles.logEntry}>
           <p>Taken at: {log.takenAt}</p>
           <p>Dose: {log.dose} mg</p>
+
+           <button onClick={() => handleDeleteLog(log.id)}>
+            Delete log
+          </button>
+          
         </div>
       ))}
     </div>
