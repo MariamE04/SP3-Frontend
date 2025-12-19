@@ -19,7 +19,7 @@ function RegisterMedicine() {
 
   // Submit
   const handleSubmit = (e) => {
-    e.preventDefault(); // 🔹 vigtigt: undgå reload
+    e.preventDefault();
 
     const newMedicine = {
       name: formData.name,

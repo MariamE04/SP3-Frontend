@@ -38,6 +38,14 @@ function Medicines() {
       .catch(err => console.error(err));
   };
 
+
+  // add logs
+  const handleAddLog = (medicine) => {
+  setSelectedMedicine(medicine);
+  setShowLogForm(true);
+};
+
+
   return (
     <div className={styles.container}>
       <div className={styles.left}>
@@ -50,15 +58,17 @@ function Medicines() {
 
         <h2>My Medicines</h2>
 
-        <MedicineOverview
-          medicines={medicines}
-          onSelect={(medicine) => {
-            setSelectedMedicine(medicine);
-            setShowLogForm(false);   //skjul formular
-          }}
-          onDelete={handleDelete}
-          canDelete={canDelete}
-        />
+       <MedicineOverview
+        medicines={medicines}
+        onSelect={(medicine) => {
+          setSelectedMedicine(medicine);
+          setShowLogForm(false);
+        }}
+        onDelete={handleDelete}
+        onAddLog={handleAddLog}
+        canDelete={canDelete}
+      />
+
 
       </div>
 
@@ -66,20 +76,10 @@ function Medicines() {
 
       {selectedMedicine && (
         <>
-          <MedicineLogs medicineId={selectedMedicine.id} />
-
-          <button
-            onClick={() => setShowLogForm(prev => !prev)}
-          >
-            {showLogForm ? "Cancel" : "Add Log"}
-          </button>
-
-          {showLogForm && (
-            <RegisterMedicineLog medicine={selectedMedicine} />
-          )}
+          <MedicineLogs medicine={selectedMedicine} /> {/* send hele objektet */}
+          {showLogForm && <RegisterMedicineLog medicine={selectedMedicine} />}
         </>
       )}
-
       </div>
     </div>
   );
