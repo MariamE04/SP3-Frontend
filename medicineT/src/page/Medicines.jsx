@@ -7,6 +7,7 @@ import RegisterMedicineLog from "../components/RegisterMedicineLog";
 import styles from "../style/Medicines.module.css";
 import { AuthContext } from "../auth/AuthContext";
 import EditMedicineForm from "../components/EditMedicineForm ";
+import EditLog from "../components/EditLogs";
 
 
 function Medicines() {
@@ -15,6 +16,9 @@ function Medicines() {
   const [selectedMedicine, setSelectedMedicine] = useState(null);
   const [showLogForm, setShowLogForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
+  const [selectedLog, setSelectedLog] = useState(null);
+  const [showEditLogForm, setShowEditLogForm] = useState(false);
+
   const navigate = useNavigate();
 
   // Hent alle medicine
@@ -55,6 +59,13 @@ function Medicines() {
     setShowLogForm(false);
   };
 
+  // edit log:
+ const handleEditLog = (log) => {
+  setSelectedLog(log);
+  setShowEditLogForm(true);
+  setShowEditForm(false);   // skjul edit medicine
+  setShowLogForm(false);    // skjul add log
+};
 
   return (
     <div className={styles.container}>
@@ -79,11 +90,9 @@ function Medicines() {
         onEdit={handleEditMedicine}
         canDelete={canDelete}
       />
-
-
       </div>
 
-      <div className={styles.right}>
+     <div className={styles.right}>
         {selectedMedicine && (
           <>
             {showEditForm && (
@@ -101,9 +110,21 @@ function Medicines() {
               />
             )}
 
-            {!showEditForm && (
+            {showEditLogForm && selectedLog && (
+              <EditLog
+                log={selectedLog}
+                onUpdated={() => {
+                  setShowEditLogForm(false);
+                }}
+              />
+            )}
+
+            {!showEditForm && !showEditLogForm && (
               <>
-                <MedicineLogs medicine={selectedMedicine} />
+                <MedicineLogs
+                  medicine={selectedMedicine}
+                  onEditLog={handleEditLog}
+                />
                 {showLogForm && (
                   <RegisterMedicineLog medicine={selectedMedicine} />
                 )}

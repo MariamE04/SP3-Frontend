@@ -12,3 +12,13 @@
 .logItem:last-child {
   border-bottom: none;
 }
+
+.button{
+  color: #f3eeee;
+  background-color: rgb(238, 7, 7);
+}
+
+.actions {
+  display: flex;
+  gap: 10px; /* afstand mellem knapper */
+}
