@@ -1,6 +1,6 @@
 import styles from "../style/MedicineCard.module.css";
 
-function MedicineCard({ medicine, onClick, onDelete, onAddLog, canDelete }) {
+function MedicineCard({ medicine, onClick, onDelete, onAddLog, onEdit, canDelete }) {
   return (
     <div className={styles.card} onClick={onClick}>
       <h3>{medicine.name}</h3>
@@ -8,7 +8,7 @@ function MedicineCard({ medicine, onClick, onDelete, onAddLog, canDelete }) {
       <p>{medicine.symptomDescription}</p>
 
       <div className={styles.actions}>
-        <button
+        <button className={styles.button}
           onClick={(e) => {
             e.stopPropagation();
             onAddLog(medicine);
@@ -18,7 +18,7 @@ function MedicineCard({ medicine, onClick, onDelete, onAddLog, canDelete }) {
         </button>
 
         {canDelete && (
-          <button
+          <button className={styles.button}
             onClick={(e) => {
               e.stopPropagation();
               onDelete(medicine.id);
@@ -27,6 +27,17 @@ function MedicineCard({ medicine, onClick, onDelete, onAddLog, canDelete }) {
             Delete
           </button>
         )}
+
+        <button
+          className={styles.button}
+          onClick={(e) => {
+            e.stopPropagation();
+            onEdit(medicine);
+          }}
+        >
+          Edit
+        </button>
+
       </div>
     </div>
   );

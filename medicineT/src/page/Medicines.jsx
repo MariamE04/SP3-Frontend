@@ -6,12 +6,15 @@ import MedicineLogs from "../components/MedicineLogs";
 import RegisterMedicineLog from "../components/RegisterMedicineLog";
 import styles from "../style/Medicines.module.css";
 import { AuthContext } from "../auth/AuthContext";
+import EditMedicineForm from "../components/EditMedicineForm ";
+
 
 function Medicines() {
   const { loggedIn, user  } = useContext(AuthContext);
   const [medicines, setMedicines] = useState([]);
   const [selectedMedicine, setSelectedMedicine] = useState(null);
   const [showLogForm, setShowLogForm] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
   const navigate = useNavigate();
 
   // Hent alle medicine
@@ -45,6 +48,13 @@ function Medicines() {
   setShowLogForm(true);
 };
 
+  // edit medicine:
+  const handleEditMedicine = (medicine) => {
+    setSelectedMedicine(medicine);
+    setShowEditForm(true);
+    setShowLogForm(false);
+  };
+
 
   return (
     <div className={styles.container}>
@@ -66,6 +76,7 @@ function Medicines() {
         }}
         onDelete={handleDelete}
         onAddLog={handleAddLog}
+        onEdit={handleEditMedicine}
         canDelete={canDelete}
       />
 
@@ -73,13 +84,33 @@ function Medicines() {
       </div>
 
       <div className={styles.right}>
+        {selectedMedicine && (
+          <>
+            {showEditForm && (
+              <EditMedicineForm
+                medicine={selectedMedicine}
+                onUpdated={(updatedMedicine) => {
+                  setMedicines(prev =>
+                    prev.map(m =>
+                      m.id === updatedMedicine.id ? updatedMedicine : m
+                    )
+                  );
+                  setSelectedMedicine(updatedMedicine);
+                  setShowEditForm(false);
+                }}
+              />
+            )}
 
-      {selectedMedicine && (
-        <>
-          <MedicineLogs medicine={selectedMedicine} /> {/* send hele objektet */}
-          {showLogForm && <RegisterMedicineLog medicine={selectedMedicine} />}
-        </>
-      )}
+            {!showEditForm && (
+              <>
+                <MedicineLogs medicine={selectedMedicine} />
+                {showLogForm && (
+                  <RegisterMedicineLog medicine={selectedMedicine} />
+                )}
+              </>
+            )}
+          </>
+        )}
       </div>
     </div>
   );

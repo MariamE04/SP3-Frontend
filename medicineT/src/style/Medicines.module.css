@@ -46,3 +46,8 @@
 .logEntry p {
   margin: 2px 0;
 }
+
+.addButton{
+  color: #f4efef;
+  background-color: rgb(238, 7, 7);
+}

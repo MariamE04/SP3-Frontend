@@ -47,5 +47,5 @@ function AuthProvider({ children }) {
   );
 }
 
-// 3. Eksporter nederst
+
 export { AuthContext, AuthProvider };
