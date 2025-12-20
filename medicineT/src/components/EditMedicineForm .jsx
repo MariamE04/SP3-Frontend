@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import FetchData from "../utils/FetchData";
+import styles from "../style/FormRegister.module.css";
 
 function EditMedicineForm({ medicine, onUpdated }) {
   const [formData, setFormData] = useState({
@@ -40,7 +41,7 @@ function EditMedicineForm({ medicine, onUpdated }) {
   };
 
   return (
-    <div>
+    <div className={styles.registerForm}>
       <h3>Edit Medicine</h3>
       <form onSubmit={handleSubmit}>
         <input
@@ -58,7 +59,7 @@ function EditMedicineForm({ medicine, onUpdated }) {
           value={formData.symptomDescription}
           onChange={handleChange}
         />
-        <button type="submit">Save changes</button>
+        <button className={styles.primaryBtn} type="submit">Save changes</button>
       </form>
     </div>
   );

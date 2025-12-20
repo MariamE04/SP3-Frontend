@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import FetchData from "../utils/FetchData";
-import styles from "../style/MedicineCard.module.css";
+import styles from "../style/FormRegister.module.css";
 
 function EditLog({ log, onUpdated }) {
   const [formData, setFormData] = useState({
@@ -37,6 +37,7 @@ function EditLog({ log, onUpdated }) {
   };
 
   return (
+    <div className={styles.registerForm}>
     <form onSubmit={handleSubmit}>
       <input
         name="dose"
@@ -50,8 +51,9 @@ function EditLog({ log, onUpdated }) {
         onChange={handleChange}
         />
 
-      <button className={styles.button} type="submit">Save log</button>
+      <button className={styles.primaryBtn} type="submit">Save log</button>
     </form>
+    </div>
   );
 }
 
