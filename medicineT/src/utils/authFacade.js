@@ -33,8 +33,18 @@ function getUserNameAndRoles() {
   return [username, roles];
 }
 
+// ---------- REGISTER ----------
+async function register(username, password) {
+  return await FetchData("/auth/register", "POST", {
+    username,
+    password,
+  });
+}
+
+
 export default {
   login,
   logout,
   getUserNameAndRoles,
+  register,
 };

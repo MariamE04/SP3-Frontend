@@ -32,7 +32,7 @@ function MedicineLogs({ medicine, onEditLog }) {
   };
 
   return (
-    <div>
+    <div className={styles.logsBox}>
       <h2>Logs for {medicine.name}</h2>
 
       {logs.map(log => (

@@ -1,6 +1,7 @@
   import { useState, useContext } from "react";
   import FetchData from "../utils/FetchData";
   import { AuthContext } from "../auth/AuthContext";
+  import styles from "../style/FormRegister.module.css";
 
   function RegisterMedicineLog({ medicine }) {
     const { username } = useContext(AuthContext);
@@ -41,6 +42,7 @@
     };
 
     return (
+      <div className={styles.registerForm}>
       <form onSubmit={handleSubmit}>
         <h4>Add log for {medicine.name}</h4>
 
@@ -59,8 +61,9 @@
           onChange={handleChange}
         />
 
-        <button type="submit">Add Log</button>
+        <button className={styles.primaryBtn} type="submit">Add Log</button>
       </form>
+      </div>
     );
   }
 

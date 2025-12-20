@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../auth/AuthContext";
 import { useSearchParams } from "react-router-dom";
+import styles from "../style/Login.module.css";
 
 
 function Login() {
@@ -25,10 +26,10 @@ function Login() {
   };
 
   return (
-    <div>
+    <div className={styles.loginForm}>
        {reason === "expired" && (
       <p style={{ color: "red", marginBottom: "1rem" }}>
-        Session expired – please log in again
+        Session expired - please log in again
       </p>
     )}
     
