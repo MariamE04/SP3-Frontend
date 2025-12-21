@@ -13,7 +13,7 @@ function MedicineLogs({ medicine, onEditLog }) {
       .then(data => {
         const filteredLogs = (data || []).filter(
           log => log.medicineName === medicine.name
-        );
+      );
         setLogs(filteredLogs);
         setLoading(false);
       })
