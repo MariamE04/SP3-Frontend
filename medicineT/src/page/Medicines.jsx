@@ -11,7 +11,7 @@ import EditLog from "../components/EditLogs";
 
 
 function Medicines() {
-  const { loggedIn, user  } = useContext(AuthContext);
+  const { loggedIn, roles } = useContext(AuthContext);
   const [medicines, setMedicines] = useState([]);
   const [selectedMedicine, setSelectedMedicine] = useState(null);
   const [showLogForm, setShowLogForm] = useState(false);
@@ -31,7 +31,11 @@ function Medicines() {
       .catch(err => console.error(err));
   }, [loggedIn]);
 
-  const canDelete = user?.roles !== "ADMIN";
+
+    const canDelete = !roles?.toLowerCase().includes("admin");
+    const canEdit = !roles?.toLowerCase().includes("admin");
+    const canAddLog = !roles?.toLowerCase().includes("admin");
+
 
   // Delete funktion
   const handleDelete = (id) => {
@@ -70,12 +74,15 @@ function Medicines() {
   return (
     <div className={styles.container}>
       <div className={styles.left}>
+       {!roles?.toLowerCase().includes("admin") && (
         <button
           onClick={() => navigate("/medicines/new")}
           className={styles.addButton}
         >
           Add Medicine
         </button>
+      )}
+
 
         <h2>My Medicines</h2>
 
@@ -89,6 +96,8 @@ function Medicines() {
         onAddLog={handleAddLog}
         onEdit={handleEditMedicine}
         canDelete={canDelete}
+        canEdit={canEdit}  
+        canAddLog={canAddLog}
       />
       </div>
 

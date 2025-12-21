@@ -10,7 +10,6 @@ import Home from "./page/Home";
 import Login from "./page/Login";
 import Register from "./page/Register";
 import Medicines from "./page/Medicines";
-import AdminMedicine from "./page/AdminMedicines";
 import RegisterMedicine from "./components/RegisterMedicine.jsx";
 import "./index.css";
 import "./style/global.css";
@@ -32,12 +31,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/medicines/new" element={<RegisterMedicine />} />
 
           {/* <Route path="/medicines/:id/edit" element={<EditMedicineForm />} /> */}
-        </Route>
-        
-
-        {/* Kun admin */}
-        <Route element={<ProtectedRoute role="ADMIN" />}>
-          <Route path="/admin-medicine" element={<AdminMedicine />} />
         </Route>
       </Routes>
 

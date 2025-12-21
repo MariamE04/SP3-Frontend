@@ -1,6 +1,6 @@
 import MedicineCard from "./MedicineCard";
 
-function MedicineOverview({ medicines, onSelect, onDelete, onAddLog, onEdit, canDelete,  }) {
+function MedicineOverview({ medicines, onSelect, onDelete, onAddLog, onEdit, canDelete, canEdit, canAddLog }) {
   return (
     <>
       {medicines.map(medicine => (
@@ -12,6 +12,8 @@ function MedicineOverview({ medicines, onSelect, onDelete, onAddLog, onEdit, can
           onAddLog={onAddLog}
           onEdit={onEdit}
           canDelete={canDelete}
+          canEdit={canEdit}  
+          canAddLog={canAddLog}
         />
       ))}
     </>
