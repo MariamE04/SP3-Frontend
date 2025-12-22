@@ -9,7 +9,6 @@ import { AuthContext } from "../auth/AuthContext";
 import EditMedicineForm from "../components/EditMedicineForm ";
 import EditLog from "../components/EditLogs";
 
-
 function Medicines() {
   const { loggedIn, roles } = useContext(AuthContext);
   const [medicines, setMedicines] = useState([]);
@@ -49,7 +48,6 @@ function Medicines() {
       .catch(err => console.error(err));
   };
 
-
   // add logs
   const handleAddLog = (medicine) => {
   setSelectedMedicine(medicine);
@@ -82,7 +80,6 @@ function Medicines() {
           Add Medicine
         </button>
       )}
-
 
         <h2>My Medicines</h2>
 

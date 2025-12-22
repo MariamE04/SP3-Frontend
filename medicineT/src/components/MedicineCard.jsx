@@ -1,8 +1,19 @@
 import styles from "../style/MedicineCard.module.css";
+import { useContext } from "react";
+import { AuthContext } from "../auth/AuthContext";
+
 
 function MedicineCard({ medicine, onClick, onDelete, onAddLog, onEdit, canDelete, canEdit, canAddLog }) {
+  const { roles } = useContext(AuthContext);
+  const isAdmin = roles?.toLowerCase().includes("admin");
+
   return (
     <div className={styles.card} onClick={onClick}>
+
+      {isAdmin && medicine.user && (
+        <p><strong>User:</strong> {medicine.user.username}</p>
+      )}
+
       <h3>{medicine.name}</h3>
       <p>Type: {medicine.type}</p>
       <p>{medicine.symptomDescription}</p>

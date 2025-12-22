@@ -8,7 +8,7 @@ function MedicineLogs({ medicine, onEditLog }) {
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
-    const canEditLog = !roles?.toLowerCase().includes("admin");
+  const canEditLog = !roles?.toLowerCase().includes("admin");
   const canDeleteLog = !roles?.toLowerCase().includes("admin");
 
   useEffect(() => {
@@ -40,24 +40,32 @@ function MedicineLogs({ medicine, onEditLog }) {
     <div className={styles.logsBox}>
       <h2>Logs for {medicine.name}</h2>
 
-      {logs.map(log => (
-        <div  className={styles.actions} key={log.id}>
-          <p>Taken at: {log.takenAt}</p>
-          <p>Dose: {log.dose} mg</p>
+     {logs.map(log => (
+      <div className={styles.actions} key={log.id}>
 
-            {canEditLog && (
-            <button className={styles.button} onClick={() => onEditLog(log)}>
-              Edit log
-            </button>
-          )}
-          {canDeleteLog && (
-            <button className={styles.button} onClick={() => handleDeleteLog(log.id)}>
-              Delete log
-            </button>
-          )}
-        </div>
-      ))}
-    </div>
+        <p>Taken at: {log.takenAt}</p>
+        <p>Dose: {log.dose} mg</p>
+
+        {canEditLog && (  
+          <button
+            className={styles.button}
+            onClick={() => onEditLog(log)}
+          >
+            Edit log
+          </button>
+        )}
+
+        {canDeleteLog && (
+          <button
+            className={styles.button}
+            onClick={() => handleDeleteLog(log.id)}
+          >
+            Delete log
+          </button>
+        )}
+      </div>
+    ))}
+  </div>
   );
 }
 
