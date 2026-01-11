@@ -1,0 +1,12 @@
+/*<p id="message"></p>
+<button id="btn">Click me</button>
+
+<script>
+  const msg = document.getElementById("message");
+  const btn = document.getElementById("btn");
+
+  btn.addEventListener("click", () => {
+    msg.textContent = "Button clicked!";
+    msg.style.color = "green";
+  });
+</script>*/
